@@ -67,7 +67,18 @@ function InterviewPage({
                     [currentQuestion]: result,
                 });
 
-                setTotalScore(prev => prev + result.score);
+                setTotalScore(prev => {
+                    const newScore = prev + result.score;
+
+                    localStorage.setItem(
+                        "avgScore",
+                        (
+                        newScore / questions.length
+                        ).toFixed(1)
+                    );
+
+                    return newScore;
+                    });
                 }}
             >
                 Evaluate Answer

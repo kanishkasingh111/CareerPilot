@@ -17,6 +17,13 @@ function ProfilePage({ onNext }) {
       year,
       goal,
     };
+
+    localStorage.setItem(
+      "studentData",
+      JSON.stringify(studentData)
+    );
+
+onNext(studentData);
     
 
     onNext(studentData);
