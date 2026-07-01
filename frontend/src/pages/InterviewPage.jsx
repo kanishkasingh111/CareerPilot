@@ -1,5 +1,5 @@
 import interviewQuestions from "../data/interviewQuestions";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import evaluateAnswer from "../utils/evaluateAnswer";
 
 function InterviewPage({
@@ -21,6 +21,30 @@ function InterviewPage({
     const [results, setResults] = useState({});
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [totalScore, setTotalScore] = useState(0);
+    const [savedInterview, setSavedInterview] = useState(false);
+    
+    useEffect(() => {
+  if (
+    !savedInterview &&
+    currentQuestion === questions.length - 1 &&
+    results[currentQuestion]
+  ) {
+    const interviews =
+      Number(localStorage.getItem("interviews")) || 0;
+
+    localStorage.setItem(
+      "interviews",
+      interviews + 1
+    );
+
+    setSavedInterview(true);
+  }
+}, [
+  currentQuestion,
+  results,
+  questions.length,
+  savedInterview
+]);
 
   return (
     <div className="app-container">

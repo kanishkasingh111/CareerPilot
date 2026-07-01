@@ -7,6 +7,8 @@ import WelcomePage from "./pages/WelcomePage";
 import ProfilePage from "./pages/ProfilePage";
 import RoadmapPage from "./pages/RoadmapPage";
 import ProgressPage from "./pages/ProgressPage";
+import DashboardPage from "./pages/DashboardPage";
+import CareerInsightsPage from "./pages/CareerInsightsPage";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("welcome");
@@ -36,7 +38,7 @@ function App() {
         <ProfilePage
           onNext={(data) => {
             setStudentData(data);
-            setCurrentPage("roadmap");
+            setCurrentPage("dashboard");
           }}
         />
       )}
@@ -61,6 +63,18 @@ function App() {
 
       {currentPage === "progress" && (
         <ProgressPage />
+      )}
+
+      {currentPage === "dashboard" && (
+        <DashboardPage
+          studentData={studentData}
+          setCurrentPage={setCurrentPage}
+        />
+      )}
+      {currentPage === "insights" && (
+        <CareerInsightsPage
+          studentData={studentData}
+        />
       )}
 
     </div>

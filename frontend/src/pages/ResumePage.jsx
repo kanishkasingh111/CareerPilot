@@ -1,5 +1,6 @@
 import roadmaps from "../data/roadmaps";
 import ProgressCard from "../components/ProgressCard";
+import { jsPDF } from "jspdf";
 
 function ResumePage({ studentData }) {
    if (!studentData) {
@@ -18,6 +19,60 @@ function ResumePage({ studentData }) {
   const skills = roadmap?.skills || [];
 
   const projects = roadmap?.projects || [];
+  const downloadResume = () => {
+  const doc = new jsPDF();
+
+  doc.setFontSize(20);
+  doc.text(studentData.name, 20, 20);
+
+  doc.setFontSize(12);
+  doc.text(
+    `Branch: ${studentData.branch}`,
+    20,
+    35
+  );
+
+  doc.text(
+    `Year: ${studentData.year}`,
+    20,
+    45
+  );
+
+  doc.text(
+    `Career Goal: ${studentData.goal}`,
+    20,
+    55
+  );
+
+  doc.text("Skills:", 20, 75);
+
+  skills.forEach((skill, index) => {
+    doc.text(
+      `• ${skill}`,
+      25,
+      85 + index * 10
+    );
+  });
+
+  const projectStartY =
+    95 + skills.length * 10;
+
+  doc.text(
+    "Projects:",
+    20,
+    projectStartY
+  );
+
+  projects.forEach((project, index) => {
+    doc.text(
+      `• ${project}`,
+      25,
+      projectStartY + 10 + index * 10
+    );
+  });
+
+  doc.save("CareerPilot_Resume.pdf");
+};
   return (
     <div className="app-container">
       <div className="dashboard">
@@ -58,9 +113,9 @@ function ResumePage({ studentData }) {
 
             <div style={{ marginTop: "25px" }}>
               <button
-                onClick={() => window.print()}
+                onClick={downloadResume}
               >
-                📄 Download Resume
+                📄 Download Resume PDF
               </button>
             </div>
 

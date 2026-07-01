@@ -5,6 +5,12 @@ function Sidebar({ setCurrentPage }) {
       <h2>🚀 CareerPilot</h2>
 
       <button
+        onClick={() => setCurrentPage("dashboard")}
+      >
+        🏠 Dashboard
+      </button>
+
+      <button
         onClick={() => setCurrentPage("roadmap")}
       >
         🏠 Roadmap
@@ -26,6 +32,12 @@ function Sidebar({ setCurrentPage }) {
         onClick={() => setCurrentPage("progress")}
       >
         📊 Progress
+      </button>
+
+      <button
+        onClick={() =>setCurrentPage("insights")}
+      >
+        🧠 Career Insights
       </button>
 
     </div>
