@@ -24,6 +24,7 @@ function App() {
 
       {studentData && (
         <Sidebar
+          currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />
       )}
