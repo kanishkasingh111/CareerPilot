@@ -65,14 +65,11 @@ function CareerInsightsPage({ studentData }) {
 
         <div className="roadmap-card">
             <h2>📈 Industry Demand</h2>
-
             <h1>High 🔥</h1>
-
             <p>
                 Strong hiring trend in this domain.
             </p>
         </div>
-
       </div>
 
     </div>
