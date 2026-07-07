@@ -22,8 +22,16 @@ function ResumePage({ studentData }) {
   const downloadResume = () => {
   const doc = new jsPDF();
 
-  doc.setFontSize(20);
+  doc.setFontSize(24);
   doc.text(studentData.name, 20, 20);
+
+  doc.setFontSize(12);
+
+  doc.text(
+    `Aspiring ${studentData.goal}`,
+    20,
+    30
+  );
 
   doc.setFontSize(12);
   doc.text(
@@ -72,6 +80,35 @@ function ResumePage({ studentData }) {
   });
 
   doc.save("CareerPilot_Resume.pdf");
+
+  const achievementY =
+  projectStartY +
+  20 +
+  projects.length * 10;
+  doc.text(
+    "Achievements:",
+    20,
+    achievementY
+  );
+
+  doc.text(
+    "• Completed CareerPilot Roadmap",
+    25,
+    achievementY + 10
+  );
+
+  doc.text(
+    "• Participated in Mock Interviews",
+    25,
+    achievementY + 20
+  );
+
+  doc.text(
+    "• Built Technical Projects",
+    25,
+    achievementY + 30
+  );
+
 };
   return (
     <div className="app-container">
@@ -84,13 +121,17 @@ function ResumePage({ studentData }) {
         <div className="roadmap-card">
 
           <h2>{studentData.name}</h2>
+          <p>📧 your.email@example.com</p>
+          <p>🔗 linkedin.com/in/yourprofile</p>
+          <p>💻 github.com/yourgithub</p>
           <h4>
             Aspiring {studentData.goal}
           </h4>
 
-          <p>
-            {studentData.branch} • {studentData.year}
-          </p>
+          <p>{studentData.branch} • {studentData.year}</p>
+          <h3>Education</h3>
+          <p>B.Tech - {studentData.branch}</p>
+          <p>{studentData.year}</p>
 
           <hr />
 
@@ -110,6 +151,23 @@ function ResumePage({ studentData }) {
               <li key={index}>{project}</li>
             ))}
           </ul>
+          <h3>Achievements</h3>
+          <ul>
+            <li>Completed CareerPilot Roadmap</li>
+            <li>Participated in Mock Interviews</li>
+            <li>Built Technical Projects</li>
+          </ul>
+
+            <div
+              style={{
+                marginTop: "20px",
+                textAlign: "center",
+              }}
+            >
+              <h3>
+                Resume Strength: 85%
+              </h3>
+            </div>
 
             <div style={{ marginTop: "25px" }}>
               <button

@@ -8,16 +8,33 @@ function DashboardPage({
   const avgScore =
     Number(localStorage.getItem("avgScore")) || 0;
 
+  const readiness = Math.min(
+    100,
+    Math.round(
+      interviews * 10 +
+      avgScore * 5 +
+      20
+    )
+  );
+
+  const skillScore = 80;
+  const resumeScore = 100;
+  const interviewScore = avgScore * 10;
+  const roadmapScore = Math.min(
+    100,
+    interviews * 15 + 30
+  );
+
   return (
     <div className="dashboard">
 
       <div className="dashboard-header">
         <h1>
-          Welcome {studentData.name} 👋
+          👋 Welcome Back, {studentData.name}
         </h1>
 
         <p>
-          Your AI Career Companion
+          🎯 {studentData.goal} • {studentData.year}
         </p>
       </div>
 
@@ -25,12 +42,12 @@ function DashboardPage({
 
         <div className="roadmap-card">
           <h2>{interviews}</h2>
-          <p>Interviews Attempted</p>
+          <p>🎤 Interviews Attempted</p>
         </div>
 
         <div className="roadmap-card">
           <h2>{avgScore}/10</h2>
-          <p>Average Score</p>
+          <p>⭐ Average Score</p>
         </div>
 
         <div className="roadmap-card">
@@ -39,42 +56,113 @@ function DashboardPage({
         </div>
 
         <div className="roadmap-card">
-          <h2>{avgScore * 10}%</h2>
-          <p>Placement Readiness</p>
+          <h2>{readiness}%</h2>
+          <p>🚀 Career Readiness</p>
+
+          <div
+            style={{
+              width: "100%",
+              height: "12px",
+              background: "#222",
+              borderRadius: "20px",
+              marginTop: "10px",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${readiness}%`,
+                height: "100%",
+                background: "limegreen",
+                borderRadius: "20px",
+              }}
+            />
+          </div>
+        </div>
+
+        <div className="roadmap-card">
+          <h2>📊 Career Readiness Breakdown</h2>
+
+          <div className="readiness-item">
+            <span>Skills Progress</span>
+            <span>{skillScore}%</span>
+          </div>
+
+          <div className="readiness-item">
+            <span>Interview Readiness</span>
+            <span>{interviewScore}%</span>
+          </div>
+
+          <div className="readiness-item">
+            <span>Resume Quality</span>
+            <span>{resumeScore}%</span>
+          </div>
+
+          <div className="readiness-item">
+            <span>Roadmap Progress</span>
+            <span>{roadmapScore}%</span>
+          </div>
         </div>
 
       </div>
 
-        <div className="roadmap-card">
-            <h2>🏅 Achievements</h2>
+      <br />
 
-            <div
-                style={{
-                display: "flex",
-                gap: "10px",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                }}
-            >
-                {interviews >= 1 && (
-                <span className="achievement-badge">📚 Beginner</span>
-                )}
+      <div className="roadmap-card">
+        <h2>🏅 Achievements</h2>
 
-                {avgScore >= 6 && (
-                <span className="achievement-badge">🚀 Rising Candidate</span>
-                )}
+        <div
+          style={{
+            display: "flex",
+            gap: "10px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+          }}
+        >
+          {interviews >= 1 && (
+            <span className="achievement-badge">
+              📚 Beginner
+            </span>
+          )}
 
-                {avgScore >= 8 && (
-                <span className="achievement-badge">
-                🏆 Placement Ready
-                </span>
-                )}
+          {avgScore >= 6 && (
+            <span className="achievement-badge">
+              🚀 Rising Candidate
+            </span>
+          )}
 
-                {interviews >= 5 && (
-                <span className="achievement-badge">⭐ Interview Master</span>
-                )}
-            </div>
+          {avgScore >= 8 && (
+            <span className="achievement-badge">
+              🏆 Placement Ready
+            </span>
+          )}
+
+          {interviews >= 5 && (
+            <span className="achievement-badge">
+              ⭐ Interview Master
+            </span>
+          )}
         </div>
+      </div>
+
+      <br />
+
+      <div className="roadmap-card">
+        <h2>🎯 Recommended Next Step</h2>
+
+        <p
+          style={{
+            fontSize: "18px",
+            marginTop: "10px",
+          }}
+        >
+          {interviews < 3
+            ? "Practice more interviews to build confidence."
+            : avgScore < 7
+            ? "Improve interview performance and communication."
+            : "Start applying for internships and opportunities."}
+        </p>
+      </div>
 
       <div
         style={{
@@ -82,6 +170,7 @@ function DashboardPage({
           display: "flex",
           gap: "15px",
           justifyContent: "center",
+          flexWrap: "wrap",
         }}
       >
         <button
@@ -89,7 +178,7 @@ function DashboardPage({
             setCurrentPage("roadmap")
           }
         >
-          View Roadmap
+          🗺 View Roadmap
         </button>
 
         <button
@@ -97,7 +186,7 @@ function DashboardPage({
             setCurrentPage("interview")
           }
         >
-          Practice Interview
+          🎤 Practice Interview
         </button>
 
         <button
@@ -105,7 +194,7 @@ function DashboardPage({
             setCurrentPage("resume")
           }
         >
-          Resume Builder
+          📄 Resume Builder
         </button>
       </div>
 
