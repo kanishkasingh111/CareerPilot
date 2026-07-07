@@ -79,6 +79,14 @@ function ResumePage({ studentData }) {
     );
   });
 
+  const currentXP =
+  Number(localStorage.getItem("xp")) || 0;
+
+  localStorage.setItem(
+    "xp",
+    currentXP + 30
+  );
+
   doc.save("CareerPilot_Resume.pdf");
 
   const achievementY =

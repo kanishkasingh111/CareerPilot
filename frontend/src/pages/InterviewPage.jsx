@@ -37,6 +37,16 @@ function InterviewPage({
       interviews + 1
     );
 
+    const currentXP =
+      Number(localStorage.getItem("xp")) || 0;
+
+    localStorage.setItem(
+      "xp",
+      currentXP + 50
+    );
+
+    setSavedInterview(true);
+
     setSavedInterview(true);
   }
 }, [

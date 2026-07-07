@@ -8,7 +8,15 @@ function CareerCoachPage({ studentData }) {
     useState("");
 
   const handleAsk = () => {
-    const q = question.toLowerCase();
+  const currentXP =
+    Number(localStorage.getItem("xp")) || 0;
+
+  localStorage.setItem(
+    "xp",
+    currentXP + 20
+  );
+
+  const q = question.toLowerCase();
 
     if (
         q.includes("learn next") ||

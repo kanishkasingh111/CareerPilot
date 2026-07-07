@@ -17,6 +17,33 @@ function DashboardPage({
     )
   );
 
+  const xp =
+  Number(localStorage.getItem("xp")) || 0;
+
+  let level = "Level 1";
+  let nextLevelXP = 100;
+
+  if (xp >= 100 && xp < 250) {
+    level = "Level 2";
+    nextLevelXP = 250;
+  }
+
+  if (xp >= 250 && xp < 500) {
+    level = "Level 3";
+    nextLevelXP = 500;
+  }
+
+  if (xp >= 500) {
+    level = "Level 4";
+    nextLevelXP = 1000;
+  }
+
+  const progress =
+    Math.min(
+      100,
+      (xp / nextLevelXP) * 100
+    );
+
   const skillScore = 80;
   const resumeScore = 100;
   const interviewScore = avgScore * 10;
@@ -24,6 +51,8 @@ function DashboardPage({
     100,
     interviews * 15 + 30
   );
+  const streak =
+  Number(localStorage.getItem("streak")) || 1;
 
   return (
     <div className="dashboard">
@@ -32,6 +61,10 @@ function DashboardPage({
         <h1>
           👋 Welcome Back, {studentData.name}
         </h1>
+
+        <h3>
+          {level} • {xp} XP
+        </h3>
 
         <p>
           🎯 {studentData.goal} • {studentData.year}
@@ -104,6 +137,43 @@ function DashboardPage({
           </div>
         </div>
 
+        <div className="roadmap-card">
+          <h2>🏆 Career Explorer</h2>
+
+          <h3>{level}</h3>
+
+          <p>
+            XP: {xp} / {nextLevelXP}
+          </p>
+
+          <div
+            style={{
+              width: "100%",
+              height: "12px",
+              background: "#222",
+              borderRadius: "20px",
+              marginTop: "10px",
+              overflow: "hidden",
+            }}
+          >
+            <div
+              style={{
+                width: `${progress}%`,
+                height: "100%",
+                background: "gold",
+                borderRadius: "20px",
+              }}
+            />
+          </div>
+        </div>
+        <div className="roadmap-card">
+        <h2>🔥 {streak} Day Streak</h2>
+
+        <p>
+          Keep learning daily to maintain your streak.
+        </p>
+      </div>
+
       </div>
 
       <br />
@@ -142,6 +212,23 @@ function DashboardPage({
               ⭐ Interview Master
             </span>
           )}
+          {xp >= 50 && (
+            <span className="achievement-badge">
+              🎖 First Interview
+            </span>
+          )}
+
+          {xp >= 200 && (
+            <span className="achievement-badge">
+              🧠 AI Coach User
+            </span>
+          )}
+
+          {xp >= 400 && (
+            <span className="achievement-badge">
+              📚 Lifelong Learner
+            </span>
+          )}
         </div>
       </div>
 
@@ -149,6 +236,28 @@ function DashboardPage({
 
       <div className="roadmap-card">
         <h2>🎯 Recommended Next Step</h2>
+        <br />
+
+        <div className="roadmap-card">
+          <h2>🔥 Daily Motivation</h2>
+
+          <p>
+            Small progress every day leads to big career opportunities.
+          </p>
+        </div>
+
+          <br />
+        <div className="roadmap-card">
+          <h2>🎯 Weekly Goal</h2>
+
+          <p>
+            Complete 3 interview sessions this week.
+          </p>
+
+          <p>
+            Progress: {Math.min(interviews, 3)}/3
+          </p>
+        </div>
 
         <p
           style={{
@@ -198,7 +307,38 @@ function DashboardPage({
         </button>
       </div>
 
+      <div className="quick-actions">
+
+        <div className="action-card"
+          onClick={() => setCurrentPage("roadmap")}
+        >
+          🗺
+          <h3>Roadmap</h3>
+          <p>Continue learning</p>
+        </div>
+
+        <div
+          className="action-card"
+          onClick={() => setCurrentPage("interview")}
+        >
+          🎤
+          <h3>Interview</h3>
+          <p>Practice now</p>
+        </div>
+
+        <div
+          className="action-card"
+          onClick={() => setCurrentPage("resume")}
+        >
+          📄
+          <h3>Resume</h3>
+          <p>Improve profile</p>
+        </div>
+
+      </div>
+
     </div>
+
   );
 }
 

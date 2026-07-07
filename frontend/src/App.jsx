@@ -77,6 +77,13 @@ useEffect(() => {
               "studentData",
               JSON.stringify(data)
             );
+            const currentStreak =
+              Number(localStorage.getItem("streak")) || 0;
+
+            localStorage.setItem(
+              "streak",
+              currentStreak + 1
+            );
 
             setCurrentPage("dashboard");
           }}
