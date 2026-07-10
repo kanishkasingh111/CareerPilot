@@ -1,17 +1,19 @@
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import { useState } from "react";
 
 function Navbar({
   currentPage,
   setCurrentPage,
   studentData
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
     <div className="navbar">
 
     <div className="nav-brand">
         <div className="nav-logo">
-            CareerPilot
+          🚀 CareerPilot
         </div>
 
         <div className="nav-username">
@@ -23,46 +25,101 @@ function Navbar({
         </div>
     </div>
 
-      <div className="nav-links">
+    <button
+      className="menu-toggle"
+      onClick={() => setMenuOpen(!menuOpen)}
+    >
+      ☰
+    </button>
 
-        <button onClick={() => setCurrentPage("dashboard")}>
-          Dashboard
-        </button>
+      <div className={`nav-links ${menuOpen ? "open" : ""}`}>
 
-        <button onClick={() => setCurrentPage("roadmap")}>
-          Roadmap
-        </button>
-
-        <button onClick={() => setCurrentPage("interview")}>
-          Interview
-        </button>
-
-        <button onClick={() => setCurrentPage("resume")}>
-          Resume
-        </button>
-
-        <button onClick={() => setCurrentPage("progress")}>
-          Progress
-        </button>
-
-        <button onClick={() => setCurrentPage("insights")}>
-          Insights
+        <button
+          className={
+            currentPage === "dashboard"
+              ? "nav-active"
+              : ""
+          }
+          onClick={() => setCurrentPage("dashboard")}
+        >
+          🏠 Dashboard
         </button>
 
         <button
-          onClick={() =>
-            setCurrentPage("coach")
+          className={
+            currentPage === "roadmap"
+              ? "nav-active"
+              : ""
           }
+          onClick={() => setCurrentPage("roadmap")}
         >
-          AI Coach
+          🗺 Roadmap
         </button>
 
         <button
-          onClick={() =>
-            setCurrentPage("resources")
+          className={
+            currentPage === "interview"
+              ? "nav-active"
+              : ""
           }
+          onClick={() => setCurrentPage("interview")}
         >
-          Resources
+          🎤 Interview
+        </button>
+
+        <button
+          className={
+            currentPage === "resume"
+              ? "nav-active"
+              : ""
+          }
+          onClick={() => setCurrentPage("resume")}
+        >
+          📄 Resume
+        </button>
+
+        <button
+          className={
+            currentPage === "progress"
+              ? "nav-active"
+              : ""
+          }
+          onClick={() => setCurrentPage("progress")}
+        >
+          📊 Progress
+        </button>
+
+        <button
+          className={
+            currentPage === "insights"
+              ? "nav-active"
+              : ""
+          }
+          onClick={() => setCurrentPage("insights")}
+        >
+          🧠 Insights
+        </button>
+
+        <button
+          className={
+            currentPage === "coach"
+              ? "nav-active"
+              : ""
+          }
+          onClick={() => setCurrentPage("coach")}
+        >
+          🤖 AI Coach
+        </button>
+
+        <button
+          className={
+            currentPage === "resources"
+              ? "nav-active"
+              : ""
+          }
+          onClick={() => setCurrentPage("resources")}
+        >
+          📚 Resources
         </button>
 
         <button
