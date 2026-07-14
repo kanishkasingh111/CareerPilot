@@ -91,37 +91,49 @@ useEffect(() => {
       )}
 
       {currentPage === "roadmap" && (
-        <RoadmapPage
-          studentData={studentData}
-          goToInterview={() => setCurrentPage("interview")}
-        />
+      <div className="page-transition">
+      <RoadmapPage
+      studentData={studentData}
+      goToInterview={() => setCurrentPage("interview")}
+      />
+      </div>
       )}
 
       {currentPage === "interview" && (
-        <InterviewPage
-          studentData={studentData}
-          goToResume={() => setCurrentPage("resume")}
-        />
+      <div className="page-transition">
+      <InterviewPage
+      studentData={studentData}
+      goToResume={() => setCurrentPage("resume")}
+      />
+      </div>
       )}
 
       {currentPage === "resume" && (
-        <ResumePage studentData={studentData} />
+      <div className="page-transition">
+      <ResumePage studentData={studentData} />
+      </div>
       )}
 
       {currentPage === "progress" && (
-        <ProgressPage />
+      <div className="page-transition">
+      <ProgressPage />
+      </div>
       )}
 
       {currentPage === "dashboard" && (
+      <div className="page-transition">
         <DashboardPage
           studentData={studentData}
           setCurrentPage={setCurrentPage}
         />
+      </div>
       )}
       {currentPage === "insights" && (
-        <CareerInsightsPage
-          studentData={studentData}
-        />
+      <div className="page-transition">
+      <CareerInsightsPage
+      studentData={studentData}
+      />
+      </div>
       )}
       {currentPage === "signup" && (
         <SignupPage
@@ -148,15 +160,19 @@ useEffect(() => {
       )}
 
       {currentPage === "coach" && (
-        <CareerCoachPage
-          studentData={studentData}
-        />
+      <div className="page-transition">
+      <CareerCoachPage
+      studentData={studentData}
+      />
+      </div>
       )}
 
       {currentPage === "resources" && (
-        <ResourcesPage
-          studentData={studentData}
-        />
+      <div className="page-transition">
+      <ResourcesPage
+      studentData={studentData}
+      />
+      </div>
       )}
 
     </div>

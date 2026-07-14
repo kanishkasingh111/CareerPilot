@@ -1,3 +1,8 @@
+import RecentActivity from "../components/RecentActivity";
+import XPProgress from "../components/XPProgress";
+import { useEffect, useState } from "react";
+import AnimatedNumber from "../components/AnimatedNumber";
+
 function DashboardPage({
   studentData,
   setCurrentPage,
@@ -9,6 +14,7 @@ function DashboardPage({
     Number(localStorage.getItem("avgScore")) || 0;
 
   const readiness = Math.min(
+
     100,
     Math.round(
       interviews * 10 +
@@ -17,8 +23,12 @@ function DashboardPage({
     )
   );
 
+ 
+
   const xp =
   Number(localStorage.getItem("xp")) || 0;
+
+  
 
   let level = "Level 1";
   let nextLevelXP = 100;
@@ -38,6 +48,8 @@ function DashboardPage({
     nextLevelXP = 1000;
   }
 
+ 
+
   const progress =
     Math.min(
       100,
@@ -54,43 +66,96 @@ function DashboardPage({
   const streak =
   Number(localStorage.getItem("streak")) || 1;
 
+  
+
+  const formatGoal = (goal) => {
+    const goals = {
+      aiEngineer: "AI Engineer",
+      fullStackDeveloper: "Full Stack Developer",
+      dataScientist: "Data Scientist",
+      cybersecurity: "Cyber Security",
+      softwareEngineer: "Software Engineer",
+    };
+
+    return goals[goal] || goal;
+  };
+
+  const formatYear = (year) => {
+    const years = {
+      firstYear: "1st Year",
+      secondYear: "2nd Year",
+      thirdYear: "3rd Year",
+      fourthYear: "4th Year",
+    };
+
+    return years[year] || year;
+  };
+
   return (
     <div className="dashboard">
 
       <div className="dashboard-header">
-        <h1>
-          👋 Welcome Back, {studentData.name}
-        </h1>
 
-        <h3>
-          {level} • {xp} XP
-        </h3>
+        <div className="hero-left">
 
-        <p>
-          🎯 {studentData.goal} • {studentData.year}
-        </p>
+          <h1>
+            👋 Welcome Back, {studentData.name}
+          </h1>
+
+          <p className="hero-subtitle">
+            {formatGoal(studentData.goal)} • {formatYear(studentData.year)}
+          </p>
+
+          <p className="hero-quote">
+            "Success isn't built in a day.
+            It's built every day."
+          </p>
+
+        </div>
+
+        <div className="hero-right">
+
+          <div className="hero-badge">
+            ⚡ {xp} XP
+          </div>
+
+          <div className="hero-badge">
+            🚀 {readiness}% Ready
+          </div>
+
+        </div>
+
       </div>
 
       <div className="roadmap-grid">
 
-        <div className="roadmap-card">
-          <h2>{interviews}</h2>
-          <p>🎤 Interviews Attempted</p>
+        <div className="roadmap-card stat-card">
+          <div className="stat-icon">🎤</div>
+          <h2><AnimatedNumber value={interviews}/></h2>
+          <p>Interviews</p>
         </div>
 
-        <div className="roadmap-card">
+        <div className="roadmap-card stat-card">
+          <div className="stat-icon">⚡</div>
+          <h2><AnimatedNumber value={xp}/></h2>
+          <p>Total XP</p>
+        </div>
+
+        <div className="roadmap-card stat-card">
+           <div className="stat-icon">⭐</div>
           <h2>{avgScore}/10</h2>
-          <p>⭐ Average Score</p>
+          <p> Average Score</p>
         </div>
 
-        <div className="roadmap-card">
-          <h2>📄</h2>
+        <div className="roadmap-card stat-card">
+           <div className="stat-icon">📄</div>
           <p>Resume Ready</p>
         </div>
 
-        <div className="roadmap-card">
-          <h2>{readiness}%</h2>
-          <p>🚀 Career Readiness</p>
+        <div className="roadmap-card stat-card">
+           <div className="stat-icon">🚀</div>
+          <h2><AnimatedNumber value={readiness}/>%</h2>
+          <p>Career Readiness</p>
 
           <div
             style={{
@@ -167,7 +232,7 @@ function DashboardPage({
           </div>
         </div>
         <div className="roadmap-card">
-        <h2>🔥 {streak} Day Streak</h2>
+        <h2>🔥 <AnimatedNumber value={streak}/></h2>
 
         <p>
           Keep learning daily to maintain your streak.
@@ -247,6 +312,7 @@ function DashboardPage({
         </div>
 
           <br />
+        
         <div className="roadmap-card">
           <h2>🎯 Weekly Goal</h2>
 
@@ -254,9 +320,19 @@ function DashboardPage({
             Complete 3 interview sessions this week.
           </p>
 
-          <p>
-            Progress: {Math.min(interviews, 3)}/3
-          </p>
+          <h3>
+            {Math.min(interviews,3)}/3 Completed
+          </h3>
+
+          <div className="goal-progress">
+
+            <div
+              className="goal-fill"
+              style={{
+                width:`${(Math.min(interviews,3)/3)*100}%`
+              }}
+            ></div>
+          </div>
         </div>
 
         <p
@@ -336,7 +412,7 @@ function DashboardPage({
         </div>
 
       </div>
-
+      <RecentActivity />
     </div>
 
   );

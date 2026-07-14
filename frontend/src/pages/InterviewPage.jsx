@@ -1,6 +1,7 @@
 import interviewQuestions from "../data/interviewQuestions";
 import { useState, useEffect } from "react";
 import evaluateAnswer from "../utils/evaluateAnswer";
+import { addActivity } from "../utils/activityLogger";
 
 function InterviewPage({
   studentData,
@@ -109,6 +110,11 @@ function InterviewPage({
                         (
                         newScore / questions.length
                         ).toFixed(1)
+                    );
+
+                    addActivity(
+                      "🎤 Interview Completed",
+                      `Score: ${(newScore / questions.length).toFixed(1)}/10`
                     );
 
                     return newScore;

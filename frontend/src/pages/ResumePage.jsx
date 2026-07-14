@@ -1,6 +1,7 @@
 import roadmaps from "../data/roadmaps";
 import ProgressCard from "../components/ProgressCard";
 import { jsPDF } from "jspdf";
+import { addActivity } from "../utils/activityLogger";
 
 function ResumePage({ studentData }) {
    if (!studentData) {
@@ -88,6 +89,10 @@ function ResumePage({ studentData }) {
   );
 
   doc.save("CareerPilot_Resume.pdf");
+  addActivity(
+    "📄 Resume Downloaded",
+    "Resume exported as PDF"
+  );
 
   const achievementY =
   projectStartY +

@@ -8,6 +8,30 @@ function Navbar({
   studentData
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+
+  const formatGoal = (goal) => {
+    const goals = {
+      aiEngineer: "AI Engineer",
+      fullStackDeveloper: "Full Stack Developer",
+      dataScientist: "Data Scientist",
+      cybersecurity: "Cyber Security",
+      softwareEngineer: "Software Engineer",
+    };
+
+    return goals[goal] || goal;
+  };
+
+  const formatYear = (year) => {
+    const years = {
+      firstYear: "1st Year",
+      secondYear: "2nd Year",
+      thirdYear: "3rd Year",
+      fourthYear: "4th Year",
+    };
+
+    return years[year] || year;
+  };
+
   return (
     <div className="navbar">
 
@@ -21,7 +45,7 @@ function Navbar({
         </div>
 
         <div className="nav-role">
-            🎯 {studentData?.goal} • {studentData?.year}
+          🎯 {formatGoal(studentData?.goal)} • {formatYear(studentData?.year)}
         </div>
     </div>
 
