@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
 import { auth } from "./firebase/firebase";
-// import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import InterviewPage from "./pages/InterviewPage";
 import ResumePage from "./pages/ResumePage";
@@ -27,18 +26,54 @@ function App() {
 );
 
 useEffect(() => {
-  const unsubscribe =
-    onAuthStateChanged(
-      auth,
-      (currentUser) => {
-        if (currentUser) {
-          setUser(currentUser);
-        }
-      }
-    );
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+    if (currentUser) {
+      setUser(currentUser);
+    } else {
+      setUser(null);
+    }
+  });
 
   return unsubscribe;
 }, []);
+
+if (!user) {
+  return (
+    <div className="app">
+      
+      <div className="glow glow1"></div>
+      <div className="glow glow2"></div>
+
+      {currentPage === "welcome" && (
+        <WelcomePage
+          onStart={() => setCurrentPage("login")}
+        />
+      )}
+
+      {currentPage === "login" && (
+        <LoginPage
+          goToSignup={() => setCurrentPage("signup")}
+          onLogin={(loggedInUser) => {
+            setUser(loggedInUser);
+
+            if (localStorage.getItem("studentData")) {
+              setCurrentPage("dashboard");
+            } else {
+              setCurrentPage("profile");
+            }
+          }}
+        />
+      )}
+
+      {currentPage === "signup" && (
+        <SignupPage
+          goToLogin={() => setCurrentPage("login")}
+        />
+      )}
+
+    </div>
+  );
+}
 
   return (
     <div className="app">
@@ -46,14 +81,16 @@ useEffect(() => {
       <div className="glow glow1"></div>
       <div className="glow glow2"></div>
 
-      {currentPage !== "welcome" &&
-        currentPage !== "profile" && (
           <Navbar
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            studentData={studentData}
-          />
-      )}
+  currentPage={currentPage}
+  setCurrentPage={setCurrentPage}
+  studentData={studentData}
+  onLogout={() => {
+    setUser(null);
+    setCurrentPage("welcome");
+  }}
+/>
+      
 
       {/* {studentData && (
         <Sidebar
@@ -62,11 +99,7 @@ useEffect(() => {
         />
       )} */}
 
-      {currentPage === "welcome" && (
-        <WelcomePage
-          onStart={() =>setCurrentPage("login")}
-        />
-      )}
+      
 
       {currentPage === "profile" && (
         <ProfilePage
@@ -135,29 +168,8 @@ useEffect(() => {
       />
       </div>
       )}
-      {currentPage === "signup" && (
-        <SignupPage
-          goToLogin={() =>
-            setCurrentPage("login")
-          }
-        />
-      )}
-      {currentPage === "login" && (
-        <LoginPage
-          goToSignup={() => setCurrentPage("signup")}
-          onLogin={(loggedInUser) => {
-            setUser(loggedInUser);
-
-            if (
-              localStorage.getItem("studentData")
-            ) {
-              setCurrentPage("dashboard");
-            } else {
-              setCurrentPage("profile");
-            }
-          }}
-        />
-      )}
+      
+      
 
       {currentPage === "coach" && (
       <div className="page-transition">
